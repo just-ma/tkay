@@ -21,12 +21,17 @@ const BackgroundImg = styled.img`
   opacity: 0;
 `;
 
-const Column = styled.div`
+const Column = styled.a`
   flex: 1 0;
   position: relative;
+  cursor: pointer;
 
   &:hover ${BackgroundImg} {
     opacity: 1;
+  }
+
+  &:link {
+    text-decoration: none;
   }
 `;
 
@@ -36,7 +41,7 @@ const ColumnContent = styled.div`
   z-index: 1;
 `;
 
-const TitleImg = styled.img`
+const TitleContainer = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
@@ -45,10 +50,24 @@ const TitleImg = styled.img`
   pointer-events: none;
 `;
 
-const BackgroundCol = ({ src, children }) => {
+const TitleImg = styled.img`
+  animation: float 15s ease-in-out infinite;
+  width: 100%;
+
+  @keyframes float {
+    from {
+      transform: rotate(0deg) translateX(10px) rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg) translateX(10px) rotate(-360deg);
+    }
+  }
+`;
+
+const BackgroundCol = ({ column: { src, content, link } }) => {
   return (
-    <Column>
-      <ColumnContent>{children}</ColumnContent>
+    <Column href={link} target="_blank" rel="noopener noreferrer">
+      <ColumnContent>{content}</ColumnContent>
       <BackgroundImg src={src} draggable={false} />
     </Column>
   );
@@ -57,12 +76,12 @@ const BackgroundCol = ({ src, children }) => {
 function App() {
   return (
     <Page>
-      {COLUMNS.map(({ src, content }, index) => (
-        <BackgroundCol src={src} key={index}>
-          {content}
-        </BackgroundCol>
+      {COLUMNS.map((column, index) => (
+        <BackgroundCol column={column} key={index} />
       ))}
-      <TitleImg src={titleSrc} alt="title" />
+      <TitleContainer>
+        <TitleImg src={titleSrc} alt="title" />
+      </TitleContainer>
     </Page>
   );
 }

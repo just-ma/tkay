@@ -9,15 +9,20 @@ const Content = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   height: 0;
 `;
 
 const Title = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  transform: scaleX(1.6);
+  font-size: 18px;
+  font-weight: 700;
+  transform: scaleX(1.8);
   transform-origin: top left;
+  color: #baa997;
+`;
+
+const Subtitle = styled(Title)`
+  font-size: 14px;
 `;
 
 const COLUMNS = [
@@ -25,35 +30,35 @@ const COLUMNS = [
     src: background1,
     content: (
       <Content>
-        <Title>PRE-ORDER</Title>
-        Out November 3rd
+        <Title>ASSASSIN</Title>
       </Content>
     ),
+    link: "https://www.youtube.com/watch?v=65gcu3ex_yg",
   },
   {
     src: background2,
     content: (
       <Content>
-        <Title>PRE-ORDER</Title>
-        Out November 3rd
+        <Title>RING-A-LING</Title>
       </Content>
     ),
+    link: "https://www.youtube.com/watch?v=GFY2u1Bf6MU",
   },
   {
     src: background3,
     content: (
       <Content>
         <Title>PRE-ORDER</Title>
-        Out November 3rd
+        <Subtitle>OUT NOV 3</Subtitle>
       </Content>
     ),
+    link: "https://tkaymaidza.ffm.to/sweetjusticeuk",
   },
   {
     src: background4,
     content: (
       <Content>
-        <Title>PRE-ORDER</Title>
-        Out November 3rd
+        <Title>MAILING LIST</Title>
       </Content>
     ),
   },
