@@ -1,10 +1,7 @@
 import { styled } from "styled-components";
 
-import background1 from "./images/background1.jpg";
-import background2 from "./images/background2.jpg";
-import background3 from "./images/background3.jpg";
-import background4 from "./images/background4.jpg";
 import titleSrc from "./images/title.png";
+import COLUMNS from "./ColumnContent";
 
 const Page = styled.div`
   width: 100vw;
@@ -14,19 +11,29 @@ const Page = styled.div`
   display: flex;
 `;
 
-const Column = styled.div`
-  flex: 1 0;
-`;
-
 const BackgroundImg = styled.img`
+  top: 0;
+  left: 0;
+  position: absolute;
   display: block;
   width: 100%;
   height: auto;
   opacity: 0;
+`;
 
-  &:hover {
+const Column = styled.div`
+  flex: 1 0;
+  position: relative;
+
+  &:hover ${BackgroundImg} {
     opacity: 1;
   }
+`;
+
+const ColumnContent = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const TitleImg = styled.img`
@@ -35,23 +42,26 @@ const TitleImg = styled.img`
   top: 50%;
   transform: translate(-50%, -50%);
   max-width: 60%;
+  pointer-events: none;
 `;
+
+const BackgroundCol = ({ src, children }) => {
+  return (
+    <Column>
+      <ColumnContent>{children}</ColumnContent>
+      <BackgroundImg src={src} draggable={false} />
+    </Column>
+  );
+};
 
 function App() {
   return (
     <Page>
-      <Column>
-        <BackgroundImg src={background1} alt="background1" />
-      </Column>
-      <Column>
-        <BackgroundImg src={background2} alt="background2" />
-      </Column>
-      <Column>
-        <BackgroundImg src={background3} alt="background3" />
-      </Column>
-      <Column>
-        <BackgroundImg src={background4} alt="background4" />
-      </Column>
+      {COLUMNS.map(({ src, content }, index) => (
+        <BackgroundCol src={src} key={index}>
+          {content}
+        </BackgroundCol>
+      ))}
       <TitleImg src={titleSrc} alt="title" />
     </Page>
   );
